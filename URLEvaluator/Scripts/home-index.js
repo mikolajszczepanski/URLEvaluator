@@ -182,7 +182,8 @@
                 $("#go").prop('disabled', true);
             }
         });
-        $("#show-history").click(function () {
+        $("#show-history").click(function (event) {
+            event.preventDefault();
             var url = $("#url").val();
             $('#history-table tbody tr').remove();
             $("#history-table").toggle();
