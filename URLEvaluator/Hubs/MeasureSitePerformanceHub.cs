@@ -13,14 +13,17 @@ namespace URLEvaluator.Hubs
 
         public void EvaluateResponseTime(string url)
         {
+            if (LinkHelpers.ValidateUrl(url) == false)
+            {
+                RootUrlErrorValidation();
+                return;
+            }
             MeasureSitePerformanceConfig siteConfig = new MeasureSitePerformanceConfig() { Url = url };
 
             var sitePerformance = new MeasureSitePerformance(siteConfig, new LinkParser());
             sitePerformance.ProcessSuccessRequestEventHandler += SuccessResponse;
             sitePerformance.ProcessFailedRequestEventHandler += FailResponse;
             sitePerformance.ProcessFailedRootRequestEventHandler += RootUrlError;
-
-            SendGroupGuid(sitePerformance.GetGroupGuid());
             sitePerformance.EvaluateResponseTimeForSiteMap();
 
             Clients.Caller.end();
@@ -38,7 +41,7 @@ namespace URLEvaluator.Hubs
                 Parallel.ForEach(history, h => {
                     Clients.Caller.getResultHistory(
                         h.Site,
-                        h.MeasuredTime != null ? string.Format("{0:0.0000}", h.MeasuredTime.Value.TotalSeconds) : null,
+                        h.MeasuredTime != null ? string.Format(System.Globalization.CultureInfo.InvariantCulture,"{0:0.0000}", h.MeasuredTime.Value.TotalSeconds) : null,
                         h.GroupGuid,
                         h.Date.ToString("dd-MM-yyyy HH:mm:ss")
                     );
@@ -46,9 +49,9 @@ namespace URLEvaluator.Hubs
             }
         }
 
-        private void SendGroupGuid(Guid groupGuid)
+        private void RootUrlErrorValidation()
         {
-            //TODO
+            Clients.Caller.error("Given url is incorrect, syntax is http://... ");
         }
 
         private void RootUrlError()
@@ -63,7 +66,7 @@ namespace URLEvaluator.Hubs
 
         private void SuccessResponse(string url, TimeSpan? time)
         {
-            Clients.Caller.urlSuccessResponse(url, string.Format("{0:0.0000}",time.Value.TotalSeconds));
+            Clients.Caller.urlSuccessResponse(url, string.Format(System.Globalization.CultureInfo.InvariantCulture, "{0:0.0000}",time.Value.TotalSeconds));
         }
     }
 }

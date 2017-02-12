@@ -14,7 +14,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Mikołaj Szczepański</p>
+            <p>&copy; @DateTime.Now.Year - Mikołaj Szczepański<span class="label label-default" style="float:right">@typeof(URLEvaluator.MvcApplication).Assembly.GetName().Version</span></p>
         </footer>
     </div>
 

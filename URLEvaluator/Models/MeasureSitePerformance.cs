@@ -105,14 +105,9 @@ namespace URLEvaluator.Models
             {
                 using (WebClient webClient = new WebClient())
                 {
-                    //var watch = Stopwatch.StartNew();
                     string siteData = webClient.DownloadString(rootUrl);
-                    //watch.Stop();
                     var links = linkParser.ExtractLinksFromData(siteData);
                     links = links.ToList().Where(l => FilterLink(l, rootPage)).Distinct().ToList();
-                    //var performance = new SitePerformance() { Time = watch.Elapsed, Url = rootUrl };
-                    //visitedSites.Add(performance);
-                    //ProcessSuccessRequestEventHandler(performance.Url, performance.Time);
                     Parallel.ForEach(links.ToList(), l =>
                     {
                         var newRequestUrl = l.Type == LinkType.Absolute ? l.Url : LinkHelpers.MergeRootUrlAndSubpageUrlToAbsolute(rootUrl, l.Url);
@@ -158,8 +153,5 @@ namespace URLEvaluator.Models
                 }
             }
         }
-
-
-
     }
 }

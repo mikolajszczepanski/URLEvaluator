@@ -8,6 +8,13 @@ namespace URLEvaluator.Models
 {
     public class LinkHelpers
     {
+
+        static public bool ValidateUrl(string url)
+        {
+            var regex = new Regex("^[a-zA-Z]+://");
+            return regex.IsMatch(url);
+        }
+
         static public string CleanUrlFromProtocol(string url)
         {
             var regex = new Regex("^[a-zA-Z]+://");

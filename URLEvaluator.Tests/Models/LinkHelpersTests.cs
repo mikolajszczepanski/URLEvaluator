@@ -85,5 +85,21 @@ namespace URLEvaluator.Tests.Models
             Assert.AreEqual("http://websiteroot.com/x/y/z/123", merged);
         }
 
+        [TestMethod]
+        public void ValidateCorrectUrl()
+        {
+            var url = "http://test.web";
+            var result = LinkHelpers.ValidateUrl(url);
+            Assert.IsTrue(result);
+        }
+
+        [TestMethod]
+        public void ValidateIncorrectUrl()
+        {
+            var url = "test.web";
+            var result = LinkHelpers.ValidateUrl(url);
+            Assert.IsFalse(result);
+        }
+
     }
 }
