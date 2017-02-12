@@ -173,6 +173,7 @@
                 $('#results-table tbody tr').remove();
                 loadedData = {};
                 historyAvg = [];
+                history = [];
                 measureSiteApi.server.evaluateResponseTime($('#url').val());
                 proccessing = true;
                 timer = 0;
