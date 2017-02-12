@@ -6,9 +6,11 @@
         <h2 id="score"></h2>
     </div>
 </div>
+<div class="row">
+    <canvas id="result-chart" style="display:none;" width="300" height="100"></canvas>
+</div>
 <br />
 <div class="row" id="errors">
-
 </div>
 <div class="row">
     <div class="form-inline">
@@ -51,5 +53,6 @@
 @section scripts {
     <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="~/signalr/hubs"></script>
+    <script src="~/Scripts/Chart.min.js"></script>
     <script src="~/Scripts/home-index.js"></script>
 }

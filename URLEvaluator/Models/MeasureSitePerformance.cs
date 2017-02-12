@@ -144,7 +144,10 @@ namespace URLEvaluator.Models
             catch (WebException ex)
             {
                 var performance = new SitePerformance() { Time = null, Url = requestedUrl };
-                visitedSites.Add(performance);
+                lock (lockObject)
+                {
+                    visitedSites.Add(performance);
+                }
                 ProcessFailedRequestEventHandler(requestedUrl);
                 if (retryAttempts > 0)
                 {
