@@ -188,6 +188,7 @@
             var url = $("#url").val();
             $('#history-table tbody tr').remove();
             $("#history-table").toggle();
+            history = [];
             measureSiteApi.server.loadHistory(url, null);
             
         });
